@@ -16,8 +16,14 @@ public:
 	//void LinkedList();
 	void AddNodeToFront(int variable);
 	void AddNodeToBack(int variable);
-	void InsertAfterNode(Node*, int newData);
-	void PopFront();
-	void PopBack();
+	void InsertAfterNode(int nodeData, int newData);
+	
+	void DeleteNodeAtFront();
+	void DeleteNodeAtBack();
+	void DeleteArbitraryNode(int datatoDelete);
+
+	int DeleteFirstAlternative();
+	int DeleteLastAlternative();
+
 	//void Erase()
 };

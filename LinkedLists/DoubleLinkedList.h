@@ -9,21 +9,28 @@ struct Node
 class DoubleLinkedList
 {
 private:
-	Node* head = nullptr;
-	Node* tail = nullptr;
 	int elementCount;
 public:
-	//void LinkedList();
+	Node* head;
+	Node* tail;
+	
+	void InitList();
+	void IsListEmpty();
+
+
 	void AddNodeToFront(int variable);
 	void AddNodeToBack(int variable);
-	void InsertAfterNode(int nodeData, int newData);
+	void AddArbitraryNode(int nodeData, int newData);
 	
 	void DeleteNodeAtFront();
 	void DeleteNodeAtBack();
 	void DeleteArbitraryNode(int datatoDelete);
 
-	int DeleteFirstAlternative();
-	int DeleteLastAlternative();
+	Node* SearchNodes(int valueToSearch);
+	void PrintLinkedListContents();
+	void PrintSortedLinkedListContents();
+	void PrintFirstOfList();
+	void PrintLastOfList();
 
 	//void Erase()
 };

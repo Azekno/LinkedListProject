@@ -1,5 +1,21 @@
 #include "DoubleLinkedList.h"
 
+void DoubleLinkedList::InitList()
+{
+	head = nullptr;
+	tail = nullptr;
+}
+
+void DoubleLinkedList::IsListEmpty()
+{
+	if (head == nullptr)
+	{
+		std::cout << "The List is currently empty." << std::endl;
+		system("pause");
+		return;
+	}
+}
+
 void DoubleLinkedList::AddNodeToFront(int variable)
 {
 	Node* tempPtr = new Node;
@@ -22,7 +38,7 @@ void DoubleLinkedList::AddNodeToFront(int variable)
 		head->previous = tempPtr;
 		head = tempPtr;
 	}
-	delete tempPtr;
+	//delete tempPtr;
 	elementCount++;
 }
 
@@ -35,44 +51,23 @@ void DoubleLinkedList::AddNodeToBack(int variable)
 	{
 		head = tempPtr;
 		tempPtr->previous = nullptr;
-		tempPtr->data = variable;
+		//tempPtr->data = variable;
 		tempPtr->next = nullptr;
 		tail = tempPtr;
 	}
 	else
 	{
 		tempPtr->previous = tail;
-		tempPtr->data = variable;
+		//tempPtr->data = variable;
 		tail->next = tempPtr;
 		tempPtr->next = nullptr;
 		tail = tempPtr;
 	}
-	delete tempPtr;
+	//delete tempPtr;
 	elementCount++;
 }
 
-//What I did from freehand
-//void DoubleLinkedList::AddNode(int variable)
-//{
-//	Node* tempPtr = new Node;
-//	tempPtr->data = variable;
-//
-//
-//	if (head == nullptr)
-//	{
-//		head = tempPtr;
-//		tail = tempPtr;
-//	}
-//	else
-//	{
-//		tail->next = tempPtr;
-//		tail = tail->next;
-//	}
-//	elementCount++;
-//}
-
-
-void DoubleLinkedList::InsertAfterNode(int nodeData, int newData)
+void DoubleLinkedList::AddArbitraryNode(int nodeData, int newData)
 {
 	Node* tempPtr; 
 	Node* newNodePtr = new Node;
@@ -87,7 +82,7 @@ void DoubleLinkedList::InsertAfterNode(int nodeData, int newData)
 	{
 		if (head->data != newData)
 		{
-			std::cout << "could not insert" << std::endl;
+			std::cout << "Could not insert" << std::endl;
 			return;
 		}
 		newNodePtr->data = newData;
@@ -123,7 +118,7 @@ void DoubleLinkedList::InsertAfterNode(int nodeData, int newData)
 	tempPtr->next->previous = newNodePtr;
 	tempPtr->next = newNodePtr;
 
-	delete newNodePtr;
+	//delete newNodePtr;
 }
 
 void DoubleLinkedList::DeleteNodeAtFront()
@@ -192,6 +187,7 @@ void DoubleLinkedList::DeleteArbitraryNode(int dataToDelete)
 		head == nullptr;
 		tail == nullptr;
 		delete tempPtr;
+		std::cout << "Successfully deleted the selected node of the double linked list\n" << std::endl;
 		return;
 	}
 	if (head->data == dataToDelete)
@@ -199,6 +195,16 @@ void DoubleLinkedList::DeleteArbitraryNode(int dataToDelete)
 		head = head->next;
 		head->previous = nullptr;
 		delete tempPtr;
+		std::cout << "Successfully deleted the selected node of the double linked list\n" << std::endl;
+		return;
+	}
+	else if (tail->data == dataToDelete)
+	{
+		tempPtr = tail;
+		tail = tail->previous;
+		tail->next = nullptr;
+		delete tempPtr;
+		std::cout << "Successfully deleted the selected node of the double linked list\n" << std::endl;
 		return;
 	}
 	while (tempPtr->data != dataToDelete)
@@ -215,13 +221,59 @@ void DoubleLinkedList::DeleteArbitraryNode(int dataToDelete)
 	delete tempPtr;
 }
 
-int DoubleLinkedList::DeleteFirstAlternative()
+Node* DoubleLinkedList::SearchNodes(int valueToSearch)
 {
-	return 0;
+	Node* tempPtr;
+	tempPtr = head;
+	
+	while (tempPtr != nullptr)
+	{
+		if (tempPtr->data == valueToSearch)
+		{
+			return tempPtr;
+			break;
+		}
+		tempPtr = tempPtr->next;
+	}
+	return nullptr;
 }
 
-int DoubleLinkedList::DeleteLastAlternative()
+void DoubleLinkedList::PrintLinkedListContents()
 {
-	return 0;
+	Node* tempPtr;
+	tempPtr = head;
+	std::cout << "The contents in the Linked List are: \n" << std::endl;
+	while (tempPtr != nullptr)
+	{
+		std::cout << tempPtr->data << "\n" << std::endl;
+		tempPtr = tempPtr->next;
+	}
 }
 
+void DoubleLinkedList::PrintSortedLinkedListContents()
+{
+	Node* tempPtr;
+	tempPtr = head;
+	std::cout << "The sorted contents in the Linked List are: \n" << std::endl;
+	while (tempPtr != nullptr)
+	{
+		if (tempPtr->data > tempPtr->next->data)
+		{
+			std::swap(tempPtr->data, tempPtr->next->data);
+		}
+		std::cout << tempPtr->data << "\n" << std::endl;
+		tempPtr = tempPtr->next;
+	}
+
+
+}
+
+void DoubleLinkedList::PrintFirstOfList()
+{
+	std::cout << "The first of the double linked list is: \n" << head->data << std::endl;
+}
+
+void DoubleLinkedList::PrintLastOfList()
+{
+	std::cout << "The last of the double linked list is: \n" << tail->data << std::endl;
+}
